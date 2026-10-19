@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>محرري — بديل الورد</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       شريط الأدوات العلوي
+       ============================================ -->
+  <div class="toolbar">
+
+    <!-- التراجع والإعادة -->
+    <button data-cmd="undo" title="تراجع">↶</button>
+    <button data-cmd="redo" title="إعادة">↷</button>
+    <span class="sep"></span>
+
+    <!-- نمط الفقرة -->
+    <select id="blockFmt" title="نمط الفقرة">
+      <option value="p">نص عادي</option>
+      <option value="h1">عنوان 1</option>
+      <option value="h2">عنوان 2</option>
+      <option value="h3">عنوان 3</option>
+      <option value="blockquote">اقتباس</option>
+    </select>
+
+    <!-- حجم الخط -->
+    <select id="fontSize" title="حجم الخط">
+      <option value="">الحجم</option>
+      <option value="2">صغير</option>
+      <option value="3">عادي</option>
+      <option value="5">كبير</option>
+      <option value="6">كبير جداً</option>
+    </select>
+
+    <span class="sep"></span>
+
+    <!-- تنسيق النص -->
+    <button data-cmd="bold"><b>غ</b></button>
+    <button data-cmd="italic"><i>م</i></button>
+    <button data-cmd="underline"><u>خ</u></button>
+    <button data-cmd="strikeThrough"><s>ش</s></button>
+
+    <span class="sep"></span>
+
+    <!-- المحاذاة -->
+    <button data-cmd="justifyRight" title="يمين">⇥</button>
+    <button data-cmd="justifyCenter" title="وسط">↔</button>
+    <button data-cmd="justifyLeft" title="يسار">⇤</button>
+    <button data-cmd="justifyFull" title="ضبط">≡</button>
+
+    <span class="sep"></span>
+
+    <!-- القوائم -->
+    <button data-cmd="insertUnorderedList" title="قائمة نقطية">•—</button>
+    <button data-cmd="insertOrderedList" title="قائمة رقمية">1—</button>
+
+    <span class="sep"></span>
+
+    <!-- الألوان -->
+    <input type="color" id="textColor" value="#1f2937" title="لون النص">
+    <input type="color" id="highlight" value="#ffff00" title="تظليل">
+    <button data-cmd="removeFormat" title="إزالة التنسيق">✕</button>
+
+    <span class="grow"></span>
+
+    <!-- الحالة وعداد الكلمات -->
+    <span class="counter" id="counter">0 كلمة</span>
+
+    <span class="sep"></span>
+
+    <!-- أدوات الملف -->
+    <button id="btnDark" title="الوضع الليلي">🌙</button>
+    <button id="btnSave" title="حفظ">💾</button>
+    <button id="btnWord" title="تصدير Word">W</button>
+    <button id="btnHtml" title="تصدير HTML">&lt;/&gt;</button>
+    <button id="btnPrint" title="طباعة / PDF">🖨</button>
+
+  </div>
+
+  <!-- ============================================
+       منطقة التحرير
+       ============================================ -->
+  <div class="page" id="editor" contenteditable="true" spellcheck="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
