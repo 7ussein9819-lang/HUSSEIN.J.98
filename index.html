@@ -2,90 +2,282 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>محرري — بديل الورد</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محرري — محرر نصوص عصري</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- ============================================
-       شريط الأدوات العلوي
+       خلفية متدرجة (Glow Orbs)
        ============================================ -->
-  <div class="toolbar">
-
-    <!-- التراجع والإعادة -->
-    <button data-cmd="undo" title="تراجع">↶</button>
-    <button data-cmd="redo" title="إعادة">↷</button>
-    <span class="sep"></span>
-
-    <!-- نمط الفقرة -->
-    <select id="blockFmt" title="نمط الفقرة">
-      <option value="p">نص عادي</option>
-      <option value="h1">عنوان 1</option>
-      <option value="h2">عنوان 2</option>
-      <option value="h3">عنوان 3</option>
-      <option value="blockquote">اقتباس</option>
-    </select>
-
-    <!-- حجم الخط -->
-    <select id="fontSize" title="حجم الخط">
-      <option value="">الحجم</option>
-      <option value="2">صغير</option>
-      <option value="3">عادي</option>
-      <option value="5">كبير</option>
-      <option value="6">كبير جداً</option>
-    </select>
-
-    <span class="sep"></span>
-
-    <!-- تنسيق النص -->
-    <button data-cmd="bold"><b>غ</b></button>
-    <button data-cmd="italic"><i>م</i></button>
-    <button data-cmd="underline"><u>خ</u></button>
-    <button data-cmd="strikeThrough"><s>ش</s></button>
-
-    <span class="sep"></span>
-
-    <!-- المحاذاة -->
-    <button data-cmd="justifyRight" title="يمين">⇥</button>
-    <button data-cmd="justifyCenter" title="وسط">↔</button>
-    <button data-cmd="justifyLeft" title="يسار">⇤</button>
-    <button data-cmd="justifyFull" title="ضبط">≡</button>
-
-    <span class="sep"></span>
-
-    <!-- القوائم -->
-    <button data-cmd="insertUnorderedList" title="قائمة نقطية">•—</button>
-    <button data-cmd="insertOrderedList" title="قائمة رقمية">1—</button>
-
-    <span class="sep"></span>
-
-    <!-- الألوان -->
-    <input type="color" id="textColor" value="#1f2937" title="لون النص">
-    <input type="color" id="highlight" value="#ffff00" title="تظليل">
-    <button data-cmd="removeFormat" title="إزالة التنسيق">✕</button>
-
-    <span class="grow"></span>
-
-    <!-- الحالة وعداد الكلمات -->
-    <span class="counter" id="counter">0 كلمة</span>
-
-    <span class="sep"></span>
-
-    <!-- أدوات الملف -->
-    <button id="btnDark" title="الوضع الليلي">🌙</button>
-    <button id="btnSave" title="حفظ">💾</button>
-    <button id="btnWord" title="تصدير Word">W</button>
-    <button id="btnHtml" title="تصدير HTML">&lt;/&gt;</button>
-    <button id="btnPrint" title="طباعة / PDF">🖨</button>
-
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
   </div>
 
   <!-- ============================================
-       منطقة التحرير
+       الحاوية الرئيسية
        ============================================ -->
-  <div class="page" id="editor" contenteditable="true" spellcheck="true"></div>
+  <main class="app-shell">
 
-  <script src="script.js"></script>
+    <!-- الرأس -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>محرري</h1>
+          <span>بديل الورد العصري</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="btnTheme" title="الوضع الليلي / النهاري">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <div class="divider"></div>
+
+        <button class="pill-btn pill-btn-save" id="btnSave">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+            <polyline points="7 3 7 8 15 8"></polyline>
+          </svg>
+          حفظ
+        </button>
+      </div>
+    </header>
+
+    <!-- شريط الأدوات -->
+    <div class="toolbar" id="toolbar">
+
+      <!-- التراجع والإعادة -->
+      <div class="tool-group">
+        <button class="tool-btn" data-action="undo" title="تراجع (Ctrl+Z)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 14 4 9 9 4"></polyline>
+            <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+          </svg>
+        </button>
+        <button class="tool-btn" data-action="redo" title="إعادة (Ctrl+Shift+Z)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 14 20 9 15 4"></polyline>
+            <path d="M4 20v-7a4 4 0 0 1 4-4h12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <!-- أنماط الفقرة -->
+      <div class="tool-group">
+        <select class="tool-select" id="headingSelect" title="نمط الفقرة">
+          <option value="p">نص عادي</option>
+          <option value="h1">عنوان 1</option>
+          <option value="h2">عنوان 2</option>
+          <option value="h3">عنوان 3</option>
+        </select>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <!-- تنسيق النص -->
+      <div class="tool-group">
+        <button class="tool-btn" data-action="bold" title="عريض (Ctrl+B)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path>
+            <path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path>
+          </svg>
+        </button>
+        <button class="tool-btn" data-action="italic" title="مائل (Ctrl+I)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="4" x2="10" y2="4"></line>
+            <line x1="14" y1="20" x2="5" y2="20"></line>
+            <line x1="15" y1="4" x2="9" y2="20"></line>
+          </svg>
+        </button>
+        <button class="tool-btn" data-action="underline" title="تسطير (Ctrl+U)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"></path>
+            <line x1="4" y1="21" x2="20" y2="21"></line>
+          </svg>
+        </button>
+        <button class="tool-btn" data-action="strike" title="يتوسطه خط">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <path d="M17.5 6.5A5 5 0 0 0 13 4c-2.8 0-5 1.8-5 4 0 1.5.9 2.8 2.5 3.5"></path>
+            <path d="M6.5 17.5A5 5 0 0 0 11 20c2.8 0 5-1.8 5-4 0-1.2-.6-2.3-1.8-3"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <!-- المحاذاة -->
+      <div class="tool-group">
+        <button class="tool-btn" data-action="alignRight" title="محاذاة لليمين">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="21" y1="10" x2="3" y2="10"></line>
+            <line x1="21" y1="6" x2="7" y2="6"></line>
+            <line x1="21" y1="14" x2="3" y2="14"></line>
+            <line x1="21" y1="18" x2="7" y2="18"></line>
+          </svg>
+        </button>
+        <button class="tool-btn" data-action="alignCenter" title="توسيط">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="10" x2="6" y2="10"></line>
+            <line x1="21" y1="6" x2="3" y2="6"></line>
+            <line x1="21" y1="14" x2="3" y2="14"></line>
+            <line x1="18" y1="18" x2="6" y2="18"></line>
+          </svg>
+        </button>
+        <button class="tool-btn" data-action="alignLeft" title="محاذاة لليسار">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="17" y1="10" x2="3" y2="10"></line>
+            <line x1="21" y1="6" x2="3" y2="6"></line>
+            <line x1="21" y1="14" x2="3" y2="14"></line>
+            <line x1="17" y1="18" x2="3" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <!-- القوائم -->
+      <div class="tool-group">
+        <button class="tool-btn" data-action="bulletList" title="قائمة نقطية">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+        </button>
+        <button class="tool-btn" data-action="orderedList" title="قائمة رقمية">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="10" y1="6" x2="21" y2="6"></line>
+            <line x1="10" y1="12" x2="21" y2="12"></line>
+            <line x1="10" y1="18" x2="21" y2="18"></line>
+            <path d="M4 6h1v4"></path>
+            <path d="M4 10h2"></path>
+            <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <!-- الألوان -->
+      <div class="tool-group">
+        <label class="color-picker" title="لون النص">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+            <path d="M2 2l7.586 7.586"></path>
+            <circle cx="11" cy="11" r="2"></circle>
+          </svg>
+          <input type="color" id="colorInput" value="#4f46e5">
+        </label>
+
+        <label class="color-picker" title="تظليل النص">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"></path>
+          </svg>
+          <input type="color" id="highlightInput" value="#fde047">
+        </label>
+      </div>
+
+      <div class="tool-divider"></div>
+
+      <!-- إزالة التنسيق -->
+      <div class="tool-group">
+        <button class="tool-btn" data-action="clear" title="إزالة التنسيق">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7V4h16v3"></path>
+            <path d="M5 20h6"></path>
+            <path d="M13 4L8 20"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="toolbar-spacer"></div>
+
+      <!-- عداد الكلمات -->
+      <div class="word-counter" id="wordCounter">0 كلمة</div>
+
+      <div class="tool-divider"></div>
+
+      <!-- التصدير -->
+      <div class="tool-group">
+        <button class="tool-btn" id="btnExportWord" title="تصدير Word">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </button>
+        <button class="tool-btn" id="btnExportHtml" title="تصدير HTML">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        </button>
+        <button class="tool-btn" id="btnPrint" title="طباعة / PDF">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- منطقة المحرر -->
+    <div class="editor-wrapper">
+      <div class="editor-card">
+        <div id="editor"></div>
+      </div>
+    </div>
+
+    <!-- التذييل -->
+    <footer class="app-footer">
+      <span>مدعوم بـ TipTap · واجهة عصرية</span>
+    </footer>
+
+  </main>
+
+  <!-- ============================================
+       سكربت TipTap (ES Modules)
+       ============================================ -->
+  <script type="module" src="script.js"></script>
+
 </body>
 </html>
