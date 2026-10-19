@@ -1,0 +1,198 @@
+/* ============================================
+   المتغيرات العامة (Light Mode افتراضي)
+   ============================================ */
+:root {
+  --bg: #f3f4f6;
+  --paper: #ffffff;
+  --bar: #ffffff;
+  --text: #1f2937;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --hover: #eff6ff;
+}
+
+/* ============================================
+   الوضع الليلي
+   ============================================ */
+body.dark {
+  --bg: #111827;
+  --paper: #1f2937;
+  --bar: #1f2937;
+  --text: #f3f4f6;
+  --border: #374151;
+  --accent: #60a5fa;
+  --hover: #374151;
+}
+
+/* ============================================
+   إعادة الضبط الأساسية
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ============================================
+   شريط الأدوات
+   ============================================ */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--bar);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.toolbar button,
+.toolbar select {
+  font: inherit;
+  font-size: 14px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.toolbar button:hover,
+.toolbar select:hover {
+  background: var(--hover);
+}
+
+.toolbar button.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.toolbar .sep {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+.toolbar .grow {
+  flex: 1;
+}
+
+/* حقول الألوان */
+.toolbar input[type="color"] {
+  width: 34px;
+  height: 30px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* عداد الكلمات */
+.counter {
+  font-size: 13px;
+  opacity: 0.7;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+/* ============================================
+   الورقة (منطقة التحرير)
+   ============================================ */
+.page {
+  max-width: 820px;
+  margin: 24px auto;
+  padding: 60px 70px;
+  background: var(--paper);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  min-height: 70vh;
+  outline: none;
+  line-height: 1.9;
+  font-size: 17px;
+  transition: background 0.2s;
+}
+
+/* نص افتراضي عند الفراغ */
+.page:empty::before {
+  content: "ابدأ الكتابة هنا…";
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* العناوين داخل الورقة */
+.page h1 {
+  font-size: 2em;
+  margin: 0.4em 0;
+}
+
+.page h2 {
+  font-size: 1.5em;
+  margin: 0.4em 0;
+}
+
+.page h3 {
+  font-size: 1.2em;
+  margin: 0.4em 0;
+}
+
+.page a {
+  color: var(--accent);
+}
+
+.page blockquote {
+  border-right: 4px solid var(--accent);
+  padding-right: 14px;
+  opacity: 0.85;
+  margin: 1em 0;
+}
+
+.page ul,
+.page ol {
+  padding-right: 28px;
+  margin: 0.5em 0;
+}
+
+/* ============================================
+   الجوال
+   ============================================ */
+@media (max-width: 640px) {
+  .page {
+    padding: 28px 20px;
+    margin: 12px;
+    border-radius: 6px;
+  }
+}
+
+/* ============================================
+   الطباعة (PDF)
+   ============================================ */
+@media print {
+  .toolbar {
+    display: none;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .page {
+    box-shadow: none;
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+  }
+}
